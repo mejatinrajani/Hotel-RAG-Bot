@@ -1,0 +1,764 @@
+{
+  "assistant_rules": [
+    "Answer only from the retrieved hotel knowledge chunks.",
+    "Never fabricate information. If information is not present in the context, say so clearly.",
+    "Never invent prices. Only state prices that are explicitly provided in the knowledge chunks.",
+    "Never invent payment links. Payment links are not stored in this knowledge base.",
+    "Never invent availability. Room and facility availability is not stored in the knowledge base.",
+    "Never invent room inventory. Inventory levels are not stored.",
+    "Never invent discounts or promotional offers unless explicitly stated in the retrieved chunks.",
+    "Never confirm a booking, modification, or cancellation. These require live systems and human intervention.",
+    "If the requested information is not found, respond with the standard information_not_found refusal template.",
+    "Suggest contacting the hotel staff for reservation, payment, or availability inquiries.",
+    "Use the negative knowledge list to identify topics that are out of scope."
+  ],
+  "supported_intents": [
+    "room_information",
+    "pricing_query",
+    "booking_policy",
+    "cancellation_policy",
+    "check_in_out",
+    "amenity_query",
+    "restaurant_query",
+    "spa_query",
+    "gym_query",
+    "airport_transfer",
+    "payment_methods",
+    "parking_query",
+    "accessibility_query",
+    "visitor_policy",
+    "child_policy",
+    "pet_policy",
+    "smoking_policy",
+    "security_deposit",
+    "complaint",
+    "general_information"
+  ],
+  "hotel": {
+    "name": "The Regal Aurum, New Delhi",
+    "address": "Plot No. 15, Diplomatic Enclave, Sardar Patel Marg, New Delhi – 110021, India",
+    "contact": {
+      "phone": "+91 11 4567 8900",
+      "email": "reservations@regalaurum.com"
+    },
+    "room_categories": [
+      {
+        "category_name": "Premier Room",
+        "size_sqft": 420,
+        "size_sqm": 39,
+        "baseline_price_per_night_inr": 22000,
+        "gst_note": "Exclusive of 18% GST",
+        "amenities": [
+          "King-size bed or twin beds with 400-thread-count Egyptian cotton linen",
+          "Marble bathroom with separate walk-in rain shower and freestanding bathtub",
+          "Maison de Luxe bath amenities (shampoo, conditioner, shower gel, body lotion, soap)",
+          "55-inch 4K Smart TV with satellite channels and screen mirroring",
+          "Fully stocked minibar (charges as per consumption; price list inside cabinet)",
+          "Nespresso coffee machine with 4 complimentary capsules per day; additional capsules at ₹150 each",
+          "Electric kettle with premium tea selection (complimentary)",
+          "Electronic laptop-size safe",
+          "Iron and ironing board",
+          "Complimentary Wi-Fi (up to 4 devices, 50 Mbps)",
+          "Floor-to-ceiling soundproof windows with blackout curtains",
+          "Individual climate control",
+          "Pillow menu with 5 options (buckwheat, memory foam, microfibre, hypoallergenic, feather)"
+        ],
+        "description": "Elegantly appointed accommodation featuring a plush king bed (or twin beds upon request), a dedicated sitting area with a velvet armchair and a polished rosewood writing desk. The marble-clad bathroom boasts a deep-soaking freestanding bathtub and a separate glass-enclosed rain shower. Expansive floor-to-ceiling windows frame serene views of the hotel’s manicured gardens or the quiet tree-lined avenues of the diplomatic enclave."
+      },
+      {
+        "category_name": "Club Aurum Room",
+        "size_sqft": 520,
+        "size_sqm": 48,
+        "baseline_price_per_night_inr": 35000,
+        "gst_note": "Exclusive of 18% GST",
+        "amenities": [
+          "All Premier Room amenities",
+          "Exclusive Club Aurum Lounge privileges (personalised check-in/check-out, all-day tea, coffee, and light refreshments, evening cocktails and gourmet canapés served from 18:00 to 20:00, complimentary use of a private meeting room for 2 hours per stay, subject to pre-booking)",
+          "One-way chauffeured airport transfer (arrival or departure) in a BMW 5 Series",
+          "Dedicated butler service on call from 07:00 to 23:00 (packing/unpacking assistance, garment pressing of 2 items per day)",
+          "Upgraded Maison de Luxe bath amenities and exclusive bath salts",
+          "Pillow menu plus choice of weighted blanket",
+          "Nespresso coffee machine with 6 complimentary capsules daily",
+          "Welcome amenity: fresh fruit platter and a box of artisanal Indian chocolates (replenished once per stay)"
+        ],
+        "description": "A generously proportioned room featuring a king-size bed, a separate sitting area with a two-seater sofa and coffee table, and an executive work desk with an ergonomic chair. The marble bathroom is fitted with dual vanity units, a deep-soaking tub, and a walk-in rain shower. Floor-to-ceiling windows offer panoramic views of the Delhi skyline and the lush Lutyens’ Delhi greenery. Club Lounge access on the 10th floor provides an elevated, semi-private social space with dedicated concierge service."
+      },
+      {
+        "category_name": "Maharaja Suite",
+        "size_sqft": 2200,
+        "size_sqm": 204,
+        "baseline_price_per_night_inr": 140000,
+        "gst_note": "Exclusive of 18% GST",
+        "amenities": [
+          "Expansive separate living room with grand piano, curated art collection, and 65-inch OLED TV",
+          "Formal dining room seating 8 with crystal chandelier",
+          "Private study with leather-bound books and executive workstation",
+          "Full pantry with microwave, wine chiller, and dedicated butler service 24/7",
+          "Master bedroom with four-poster king bed, walk-in dressing room with vanity, and second 55-inch TV",
+          "Master marble spa bathroom: chromotherapy Jacuzzi, steam shower, hammam-style heated bench, dual rain showers, Hermès toiletries",
+          "Guest powder room",
+          "Complimentary round-trip airport transfers by chauffeured BMW 7 Series (Mercedes S-Class available on request at no extra cost)",
+          "Personal butler service round-the-clock",
+          "Daily in-suite à la carte breakfast for up to 4 guests (served in the dining room)",
+          "Complimentary minibar (all non-alcoholic beverages and house-pour spirits; premium alcohol charged as per menu)",
+          "Bang & Olufsen wireless sound system",
+          "4 complimentary garments pressed per day, shoe shine service",
+          "Private wraparound terrace of 350 sq ft with sun loungers and city views"
+        ],
+        "description": "The Grand Maharaja Suite occupies the entire corner of the 14th floor, delivering palatial living with uninterrupted views of the New Delhi skyline. The formal living room is anchored by a Steinway-designed baby grand piano, while the separate dining room hosts a crystal-laden 8-seater table. The master retreat features a custom four-poster bed, a lavish dressing room, and an opulent marble spa bathroom with a chromotherapy Jacuzzi and hammam. A sweeping private terrace wraps two sides of the suite, offering open-air relaxation above the diplomatic quarter."
+      }
+    ],
+    "policies": {
+      "check_in_time": "15:00 (3:00 PM) local time",
+      "check_out_time": "11:00 (11:00 AM) local time",
+      "early_check_in": {
+        "before_07_00": "Full previous night’s room charge (baseline rate + taxes) levied, room guaranteed from previous night.",
+        "07_00_to_09_59": "50% of applicable nightly room rate (exclusive of GST) charged.",
+        "10_00_to_14_59": "₹2,500 + 18% GST per hour charged.",
+        "room_unavailable": "Complimentary luggage storage, access to fitness centre shower/changing rooms, and invitation to use pool area (during pool hours) until room is ready."
+      },
+      "late_check_out": {
+        "until_13_00": "Complimentary, must be requested at least 4 hours prior to 11:00 AM. If not honoured, complimentary luggage storage and fitness centre showers provided.",
+        "13_00_to_16_00": "50% of nightly room rate (exclusive of GST) charged.",
+        "after_16_00": "Full nightly room rate charged.",
+        "unauthorised_overstay": "Automatically triggers full nightly rate. Late check-out beyond 11:00 AM requires written approval from Front Desk Manager."
+      },
+      "cancellation": {
+        "standard_rate": "Free cancellation until 15:00 local time, 72 hours prior to arrival. Late cancellation (within 72 hours) results in a penalty equal to 1 night’s room charge including taxes. No-show charges full stay up to 3 nights.",
+        "non_refundable_advance_purchase": "100% of total stay charged at booking; no cancellation, modification, or refund permitted."
+      },
+      "child_extra_bed": {
+        "children_free": "Up to 2 children under 10 years stay free using existing bedding.",
+        "infant_crib": "Complimentary crib for ages 0-2 years on request.",
+        "extra_rollaway_bed": "₹2,000 per night + 18% GST. Only 1 rollaway bed per room, available in Premier and Club Aurum Rooms only. Must be requested at time of reservation; same-day placement not guaranteed."
+      }
+    },
+    "amenities": [
+      {
+        "facility_name": "The Sanctum Spa",
+        "hours": "08:00 – 21:00 daily. Last treatment booking at 20:00. Steam room and sauna operate 08:00 – 20:30.",
+        "house_rules": "Minimum age 16 years. Appointments must be reserved at least 4 hours in advance. Cancellations or rescheduling within 2 hours incur 50% charge; no-shows charged 100%. Health questionnaire required. Mobile phones silent, not in treatment rooms. Spa robes, slippers, lockers provided. Steam room/sauna complimentary for 30 mins prior to treatment. Hotel guests without treatment may purchase a 2-hour wellness pass at ₹2,500 per person.",
+        "services": [
+          "Ayurvedic Therapies: Abhyanga (60 min, ₹7,500), Shirodhara (45 min, ₹8,000), Udwarthanam (50 min, ₹6,500)",
+          "Massages: Balinese Deep Tissue (60/90 min, ₹6,500/₹8,500), Aromatherapy (60 min, ₹5,500), Thai Stretching (90 min, ₹8,000)",
+          "Facials: Signature Radiance Facial (75 min, ₹7,000), Gold Radiance Lift (90 min, ₹9,500)",
+          "Body Rituals: Aurum Royal Indulgence (120 min, ₹11,000) including scrub, wrap, and massage",
+          "Salon Services: Manicure (₹2,800+), Pedicure (₹3,200+), hair styling (from ₹2,200)",
+          "All prices exclusive of 18% GST."
+        ]
+      },
+      {
+        "facility_name": "Zafran (Signature Indian Fine Dining)",
+        "hours": "Dinner: 19:00 – 23:30 (last food order 23:00, last beverage 23:15). Sunday Royal Brunch: 12:30 – 15:30 (seasonal, October to March).",
+        "house_rules": "Strict dress code: gentlemen – collared shirt, trousers, closed shoes, jacket preferred (loan jackets available); ladies – smart ethnic or formal evening attire. No shorts, sandals, flip-flops, or sleeveless T-shirts for anyone over 10 years. Children under 10 not allowed after 20:00. Reservations recommended; ₹1,500 per person cancellation fee for no-shows or cancellations within 3 hours. Outside food and beverages prohibited.",
+        "menus": [
+          "Tasting Menus: 'Shahi Dawat' Vegetarian 5-course ₹4,000 per person; 'Nawabi Dastarkhwan' Non-Vegetarian 7-course ₹5,000 per person (exclusive of taxes and alcohol).",
+          "À la carte: Galouti Kebab ₹1,600, Dum Pukht Gosht Biryani ₹2,200, Lobster Balchao ₹3,200, Nalli Nihari ₹2,000, Dal Zafran ₹1,100.",
+          "Beverages: Wine list (bottles ₹2,500 – ₹75,000), handcrafted cocktails ₹1,100–₹1,600, premium spirits and single malts."
+        ]
+      },
+      {
+        "facility_name": "Skyline Plunge Pool & Sundeck",
+        "hours": "Pool swimming: 07:00 – 20:00 daily. Sundeck bar: 11:00 – 19:00. Adults-only (18+) from 18:00 – 20:00; children’s hours end at 18:00.",
+        "house_rules": "Maximum bather capacity: 25 persons. First-come, first-served; no lounger reservations. Proper swimwear mandatory (no cotton T-shirts, denim, street clothes). Infants/toddlers must wear swim diapers. Children under 12 directly supervised by adult, restricted to shallow end (0.9 m). No glassware; poolside F&B from Sundeck Bar only. Unattended items removed after 30 min. Pool closed during lightning, heavy rain, or contamination; no refunds for weather closures.",
+        "menu": "Caesar salad ₹1,100, grilled sandwich ₹1,300, fresh fruit platter ₹800, coconut water ₹500, smoothies ₹700, signature cocktails ₹1,100–₹1,400, mocktails ₹600. All prices exclusive of taxes."
+      },
+      {
+        "facility_name": "The Royal Palate (24-Hour In-Room Dining)",
+        "hours": "24 hours daily",
+        "house_rules": "Delivery charge ₹250 per order (waived for Maharaja Suite). Extensive menu available in-room; orders placed via phone or tablet. Breakfast menu until 11:00, all-day dining, late-night menu 23:00-06:00. Special dietary requests accommodated with 2 hours' notice.",
+        "menu_highlights": "Continental breakfast ₹1,500, Indian breakfast ₹1,800, club sandwich ₹1,200, butter chicken with naan ₹1,600, pasta ₹1,400, desserts from ₹700. All prices exclusive of taxes."
+      }
+    ],
+    "faq_restrictions": {
+      "pets": {
+        "allowed": false,
+        "exception": "Only registered service animals with valid government-issued documentation. Emotional support animals not considered service animals.",
+        "penalty_unauthorised_pet": "₹20,000 deep cleaning fee and possible immediate eviction without refund."
+      },
+      "smoking": {
+        "indoor_policy": "All indoor areas are 100% non-smoking.",
+        "designated_areas": "South corner of pool deck and garden near entrance porte-cochère.",
+        "penalty": "₹12,000 deep cleaning fee per incident. If fire alarm triggered, full cost of fire department call-out and damages charged. Repeated violations lead to eviction without refund."
+      },
+      "airport_transfers": {
+        "maharaja_suite": "Complimentary round-trip chauffeured BMW 7 Series transfers (Mercedes S-Class on request at no extra cost).",
+        "club_aurum_room": "Complimentary one-way transfer in BMW 5 Series. Additional one-way ₹4,000 + 18% GST.",
+        "premier_room_and_others": "BMW 5 Series: ₹4,200 + 18% GST (up to 3 guests, 3 suitcases); Mercedes-Benz E-Class: ₹5,200 + 18% GST; Toyota Innova Crysta: ₹3,200 + 18% GST (7-seater). All include meet-and-greet, bottled water, Wi-Fi. Booking 6 hours prior with flight details."
+      },
+      "parking": {
+        "valet": "Complimentary 24/7 for in-house guests. Self-parking not available.",
+        "ev_charging": "2 Type-2 7.2 kW stations at porte-cochère. ₹400 per session (up to 4 hours), charged to folio.",
+        "visitor_parking": "₹150 per hour, daily max ₹600. No overnight visitor parking."
+      },
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "details": "Ramps at all main entrances, elevators with braille, audio announcements, low-level panels. 4 ADA-compliant rooms (Premier category) with roll-in showers, grab bars, hand-held showerheads, visual alarms, door knock sensors. Complimentary wheelchairs at Front Desk (first-come, first-served). Accessible restrooms on lobby level and near F&B venues."
+      },
+      "payment_methods": {
+        "accepted": "Visa, Mastercard, American Express, Diners Club International, RuPay credit/debit cards; UPI (Google Pay, PhonePe, BHIM); NEFT/RTGS for advance deposits.",
+        "foreign_currency": "USD, EUR, GBP, JPY, AUD, SGD, CAD accepted for exchange (valid passport & visa copy; rate updated every 4 hours).",
+        "cryptocurrency": "Bitcoin, Ethereum, or any other cryptocurrency are NOT accepted for any transactions."
+      },
+      "security_deposit": {
+        "premier_room": "₹8,000 per night of stay.",
+        "club_aurum_room": "₹12,000 per night.",
+        "maharaja_suite": "₹20,000 per night.",
+        "cash_deposits": "Refunded after deducting charges; balance via NEFT within 7 working days. Credit card pre-authorisations released immediately upon settlement (bank release 5-10 business days)."
+      },
+      "visitor_policy": {
+        "day_visitors": "Allowed in lobby, restaurants, public lounges until 22:00.",
+        "after_22_00": "Visitor must present valid government ID at Front Desk and be registered by in-house guest to enter room.",
+        "overnight": "Staying beyond 23:00 not permitted unless added to reservation at ₹3,500 + 18% GST per night. Unregistered overnight visitor penalty equals full nightly room rate, and visitor asked to leave. Visitors cannot use pool, gym, spa without purchasing a day pass."
+      },
+      "noise_restrictions": {
+        "quiet_hours": "22:00 – 07:00. Noise must be inaudible in adjacent rooms.",
+        "enforcement": "1st complaint: verbal warning. 2nd complaint: written notice and ₹5,000 disturbance fee. 3rd complaint: eviction without refund and security intervention. Party gatherings in rooms after 22:00 prohibited."
+      },
+      "pool_gym_spa_usage": {
+        "pool": "Max 25 bathers; proper swimwear; infants in swim diapers; no glass/outside food; children under 12 supervised and restricted to shallow end after 18:00.",
+        "gym": "The Regal Aurum Fitness Centre – 24/7 with key card. Minimum age 16 (16-18 must be accompanied by adult). Closed-toe athletic shoes and proper gym attire mandatory; no sandals, jeans, or business wear. Personal training ₹2,500 per 60-min session, booked 6 hours ahead.",
+        "spa": "Age 16+; 4-hour advance booking; cancellation within 2 hours = 50% charge, no-show = 100%. Steam/sauna sessions limited to 15 minutes with cooldown."
+      }
+    }
+  },
+  "retrieval_chunks": [
+    {
+      "chunk_id": 0,
+      "category": "assistant_rules",
+      "intent": "general_information",
+      "source_section": "assistant_rules",
+      "keywords": [
+        "assistant",
+        "rules",
+        "hallucination",
+        "guardrails",
+        "retrieval"
+      ],
+      "text": "Answer only using retrieved hotel knowledge. If information is unavailable, state that it is not available in the knowledge base. Never invent prices, availability, booking links, payment links, room inventory, discounts, reservations, policies, facilities, amenities, room types, payment instructions, or hotel services."
+    },
+    {
+      "chunk_id": 1,
+      "text": "The Regal Aurum New Delhi's standard check-in time is 3:00 PM and check-out is 11:00 AM. Early check-in before 7:00 AM requires paying the full previous night's room rate. Between 7:00 AM and 10:00 AM, a 50% charge of the nightly rate applies. From 10:00 AM to 3:00 PM, a fee of ₹2,500 per hour plus 18% GST is charged. If the room is not ready upon arrival, guests receive complimentary luggage storage, fitness centre shower access, and pool area invitation until the room is ready.",
+      "category": "check_in_out",
+      "intent": "check_in_out",
+      "source_section": "hotel.policies.check_in_out",
+      "keywords": ["check-in", "early check-in", "fee", "time"]
+    },
+    {
+      "chunk_id": 2,
+      "text": "Late check-out at The Regal Aurum is possible with prior approval. Until 1:00 PM it is complimentary if requested at least 4 hours before the standard 11:00 AM check-out. If the hotel cannot accommodate, free luggage storage and fitness centre showers are offered. Between 1:00 PM and 4:00 PM, 50% of the nightly room rate (excluding GST) is charged. After 4:00 PM, the full nightly rate applies. Unauthorised overstay automatically incurs the full nightly rate.",
+      "category": "check_in_out",
+      "intent": "check_in_out",
+      "source_section": "hotel.policies.check_in_out",
+      "keywords": ["late check-out", "fee", "extension", "time"]
+    },
+    {
+      "chunk_id": 3,
+      "text": "For standard rate reservations at The Regal Aurum, free cancellation is allowed until 3:00 PM local time, 72 hours prior to arrival. Cancellations made within 72 hours of arrival result in a penalty of one night's room charge including taxes. No-shows are charged the full stay up to a maximum of three nights on the guaranteed credit card.",
+      "category": "cancellation",
+      "intent": "cancellation_policy",
+      "source_section": "hotel.policies.cancellation",
+      "keywords": ["cancellation", "standard rate", "penalty", "deadline"]
+    },
+    {
+      "chunk_id": 4,
+      "text": "Non-refundable or advance purchase rates at The Regal Aurum require full payment at the time of booking and are completely non-cancellable, non-modifiable, and non-refundable under any circumstances.",
+      "category": "cancellation",
+      "intent": "cancellation_policy",
+      "source_section": "hotel.policies.cancellation",
+      "keywords": ["non-refundable", "advance purchase", "strict"]
+    },
+    {
+      "chunk_id": 5,
+      "text": "At The Regal Aurum, up to two children under 10 years old can stay for free using existing bedding. A complimentary infant crib is available for ages 0-2 upon request. An extra rollaway bed costs ₹2,000 per night plus 18% GST, but only one is allowed per room and only in Premier and Club Aurum Rooms, not in the Maharaja Suite. The extra bed must be requested at reservation time; same-day placement is not guaranteed.",
+      "category": "child_policy",
+      "intent": "child_policy",
+      "source_section": "hotel.policies.child_extra_bed",
+      "keywords": ["children", "extra bed", "crib", "rollaway", "fee"]
+    },
+    {
+      "chunk_id": 6,
+      "text": "The Premier Room at The Regal Aurum measures 420 sq ft (39 sq m) and costs ₹22,000 per night exclusive of 18% GST. Amenities include a king or twin beds, marble bathroom with rain shower and tub, Maison de Luxe toiletries, 55-inch 4K TV, minibar, Nespresso machine with 4 free daily capsules, electric kettle with teas, laptop safe, iron, free Wi-Fi (50 Mbps, 4 devices), blackout curtains, and a pillow menu with five options.",
+      "category": "room_description",
+      "intent": "room_information",
+      "source_section": "hotel.room_categories.Premier Room",
+      "keywords": ["Premier Room", "amenities", "size", "price", "base tier"]
+    },
+    {
+      "chunk_id": 7,
+      "text": "The Club Aurum Room at The Regal Aurum is 520 sq ft (48 sq m) and priced at ₹35,000 per night plus 18% GST. It includes all Premier Room features plus exclusive Club Aurum Lounge access (all-day refreshments, evening cocktails 6-8 PM, 2-hour private meeting room), one-way BMW 5 Series airport transfer, butler service (7 AM-11 PM), upgraded Maison de Luxe bath products, weighted blanket choice, 6 daily Nespresso capsules, and a welcome fruit and chocolate platter replenished once per stay.",
+      "category": "room_description",
+      "intent": "room_information",
+      "source_section": "hotel.room_categories.Club Aurum Room",
+      "keywords": ["Club Aurum Room", "mid tier", "amenities", "lounge", "transfer"]
+    },
+    {
+      "chunk_id": 8,
+      "text": "The Maharaja Suite at The Regal Aurum spans 2,200 sq ft (204 sq m) and costs ₹1,40,000 per night plus 18% GST. It features a grand living room with piano and 65-inch OLED TV, dining room for 8, private study, pantry with microwave and wine chiller, master bedroom with four-poster bed and walk-in closet, marble spa bathroom with Jacuzzi, steam shower, and hammam, Hermès toiletries, guest powder room, complimentary round-trip BMW 7 Series transfers (Mercedes S-Class on request), 24/7 butler, in-suite breakfast for 4, complimentary minibar (non-alcoholic and house spirits), B&O sound system, 4 garments pressed daily, shoe shine, and a 350 sq ft private terrace.",
+      "category": "room_description",
+      "intent": "room_information",
+      "source_section": "hotel.room_categories.Maharaja Suite",
+      "keywords": ["Maharaja Suite", "elite tier", "presidential", "amenities", "terrace"]
+    },
+    {
+      "chunk_id": 9,
+      "text": "The Sanctum Spa at The Regal Aurum operates daily from 8:00 AM to 9:00 PM with the last treatment booking at 8:00 PM. Steam and sauna close at 8:30 PM. The minimum age is 16. Appointments need 4 hours advance booking. Cancellation within 2 hours incurs a 50% charge, no-shows 100%. A health questionnaire is mandatory. A 2-hour wellness pass for non-treatment guests costs ₹2,500 per person and includes steam/sauna access.",
+      "category": "spa",
+      "intent": "spa_query",
+      "source_section": "hotel.amenities.The Sanctum Spa",
+      "keywords": ["spa", "hours", "booking", "cancellation", "age limit", "wellness pass"]
+    },
+    {
+      "chunk_id": 10,
+      "text": "At The Sanctum Spa, Ayurvedic therapy prices (all exclusive of 18% GST): Abhyanga (60 min) ₹7,500, Shirodhara (45 min) ₹8,000, Udwarthanam (50 min) ₹6,500. Massage options: Balinese Deep Tissue 60/90 min ₹6,500/₹8,500, Aromatherapy 60 min ₹5,500, Thai Stretching 90 min ₹8,000. Facials: Signature Radiance 75 min ₹7,000, Gold Radiance Lift 90 min ₹9,500. The Aurum Royal Indulgence body ritual is ₹11,000 for 120 minutes. Salon services start from ₹2,200 for hair styling.",
+      "category": "spa",
+      "intent": "spa_query",
+      "source_section": "hotel.amenities.The Sanctum Spa",
+      "keywords": ["spa", "treatment", "prices", "massage", "facial", "Ayurveda"]
+    },
+    {
+      "chunk_id": 11,
+      "text": "Zafran, the signature Indian fine dining restaurant at The Regal Aurum, serves dinner from 7:00 PM to 11:30 PM (last food order 11:00 PM, drinks until 11:15 PM). A Sunday Royal Brunch operates seasonally (October-March) from 12:30 PM to 3:30 PM. A strict dress code applies: gentlemen need collared shirt, trousers, closed shoes (jackets preferred, loaners available); ladies should wear smart ethnic or formal evening wear. No shorts, sandals, or sleeveless T-shirts for those over 10. Children under 10 are not allowed after 8:00 PM.",
+      "category": "restaurant",
+      "intent": "restaurant_query",
+      "source_section": "hotel.amenities.Zafran",
+      "keywords": ["Zafran", "dining", "hours", "dress code", "children"]
+    },
+    {
+      "chunk_id": 12,
+      "text": "Zafran offers tasting menus: 'Shahi Dawat' vegetarian 5-course at ₹4,000 per person and 'Nawabi Dastarkhwan' non-vegetarian 7-course at ₹5,000 per person, exclusive of taxes and alcohol. À la carte signatures: Galouti Kebab ₹1,600, Dum Pukht Gosht Biryani ₹2,200, Lobster Balchao ₹3,200, Nalli Nihari ₹2,000, Dal Zafran ₹1,100. Reservations are recommended; cancellations within 3 hours or no-shows incur ₹1,500 per person. Outside food and celebration cakes are prohibited.",
+      "category": "restaurant",
+      "intent": "restaurant_query",
+      "source_section": "hotel.amenities.Zafran",
+      "keywords": ["Zafran", "menu", "tasting", "prices", "cancellation fee"]
+    },
+    {
+      "chunk_id": 13,
+      "text": "The Skyline Plunge Pool & Sundeck at The Regal Aurum is open for swimming from 7:00 AM to 8:00 PM daily. Adult-only swimming (18+) is from 6:00 PM to 8:00 PM; children must leave by 6:00 PM. The Sundeck bar serves from 11:00 AM to 7:00 PM. Maximum capacity is 25 bathers, first-come first-served with no lounger reservations. Proper swimwear is mandatory; no cotton T-shirts, denim, or street clothes in the water. Infants/toddlers need swim diapers. Children under 12 must be directly supervised and stay in the shallow end. No glassware or outside food allowed; order exclusively from the Sundeck Bar menu.",
+      "category": "pool",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.Skyline Plunge Pool & Sundeck",
+      "keywords": ["pool", "hours", "rules", "swimwear", "capacity", "adults only"]
+    },
+    {
+      "chunk_id": 14,
+      "text": "The poolside menu at the Skyline Plunge Pool includes: Caesar salad ₹1,100, grilled sandwich ₹1,300, fresh fruit platter ₹800, coconut water ₹500, smoothies ₹700, signature cocktails ₹1,100–₹1,400, mocktails ₹600. All prices are exclusive of taxes. Complimentary chilled water, towels, and sunscreen are provided.",
+      "category": "pool",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.Skyline Plunge Pool & Sundeck",
+      "keywords": ["pool", "food", "drinks", "menu", "prices"]
+    },
+    {
+      "chunk_id": 15,
+      "text": "The Regal Aurum Fitness Centre is open 24/7 via room key card. Minimum age is 16; guests aged 16-18 must be with an adult. Proper gym attire and closed-toe athletic shoes are required – no sandals, jeans, or business wear. Personal training sessions cost ₹2,500 per 60 minutes and must be booked at least 6 hours in advance.",
+      "category": "gym",
+      "intent": "gym_query",
+      "source_section": "hotel.faq_restrictions.pool_gym_spa_usage.gym",
+      "keywords": ["gym", "fitness", "hours", "age limit", "dress code", "personal training"]
+    },
+    {
+      "chunk_id": 16,
+      "text": "Pets are strictly prohibited at The Regal Aurum. The only exception is registered service animals with valid government documentation; emotional support animals do not qualify. An unauthorised pet discovered in a guest room will result in a ₹20,000 deep cleaning fee and possible eviction without refund.",
+      "category": "pet_policy",
+      "intent": "pet_policy",
+      "source_section": "hotel.faq_restrictions.pets",
+      "keywords": ["pets", "animals", "service animal", "fee", "prohibited"]
+    },
+    {
+      "chunk_id": 17,
+      "text": "All indoor areas of The Regal Aurum are non-smoking. Designated outdoor smoking zones exist at the south corner of the pool deck and in the garden near the entrance. Smoking indoors triggers a ₹12,000 deep cleaning penalty per incident. If a fire alarm is set off, the guest will also be charged the full cost of the fire department call-out and any property damage. Repeated violations lead to eviction without refund.",
+      "category": "smoking",
+      "intent": "smoking_policy",
+      "source_section": "hotel.faq_restrictions.smoking",
+      "keywords": ["smoking", "penalty", "indoor", "designated areas", "deep cleaning"]
+    },
+    {
+      "chunk_id": 18,
+      "text": "The Maharaja Suite at The Regal Aurum includes complimentary round-trip airport transfers by chauffeured BMW 7 Series. A Mercedes S-Class can be requested at no extra cost. Club Aurum Room guests receive one complimentary one-way transfer in a BMW 5 Series; an additional one-way can be purchased for ₹4,000 plus 18% GST. Premier Room guests and other visitors can book a BMW 5 Series for ₹4,200 + tax (max 3 people, 3 suitcases), Mercedes E-Class for ₹5,200 + tax, or Toyota Innova Crysta for ₹3,200 + tax. All transfers include meet-and-greet, water, and Wi-Fi, and require booking at least 6 hours prior with flight details.",
+      "category": "airport_transfer",
+      "intent": "airport_transfer",
+      "source_section": "hotel.faq_restrictions.airport_transfers",
+      "keywords": ["airport transfer", "BMW", "Innova", "chauffeur", "pricing", "complimentary"]
+    },
+    {
+      "chunk_id": 19,
+      "text": "Parking at The Regal Aurum is complimentary valet service 24/7 for in-house guests. Self-parking is not available. EV charging is offered at two Type-2 7.2 kW stations near the entrance at ₹400 per session (up to 4 hours), billed to the room. Visitors and day guests pay ₹150 per hour for valet parking, with a daily max of ₹600, and no overnight parking is permitted.",
+      "category": "parking",
+      "intent": "parking_query",
+      "source_section": "hotel.faq_restrictions.parking",
+      "keywords": ["parking", "valet", "EV charging", "fee", "overnight"]
+    },
+    {
+      "chunk_id": 20,
+      "text": "The Regal Aurum is fully wheelchair accessible with ramps at all main entrances, elevators with braille, audio announcements, and low-level panels. Four ADA-compliant Premier Rooms feature roll-in showers, grab bars, hand-held showerheads, visual fire alarms, and door knock sensors. Complimentary wheelchairs are available from the Front Desk on a first-come, first-served basis. Accessible restrooms are located on the lobby level and near restaurants.",
+      "category": "accessibility",
+      "intent": "accessibility_query",
+      "source_section": "hotel.faq_restrictions.accessibility",
+      "keywords": ["wheelchair", "ADA", "accessible", "disability", "ramps"]
+    },
+    {
+      "chunk_id": 21,
+      "text": "The Regal Aurum accepts Visa, Mastercard, American Express, Diners Club International, RuPay credit and debit cards, UPI (Google Pay, PhonePe, BHIM), and NEFT/RTGS for advance deposits. Foreign currency exchange (cash) is available for USD, EUR, GBP, JPY, AUD, SGD, CAD; a valid passport and visa copy are required, and the rate updates every 4 hours. Cryptocurrency including Bitcoin and Ethereum is not accepted in any form.",
+      "category": "payment",
+      "intent": "payment_methods",
+      "source_section": "hotel.faq_restrictions.payment_methods",
+      "keywords": ["payment", "credit card", "UPI", "foreign currency", "crypto", "bitcoin"]
+    },
+    {
+      "chunk_id": 22,
+      "text": "Upon check-in at The Regal Aurum, a mandatory incidental security deposit is required per night of stay: ₹8,000 for Premier Rooms, ₹12,000 for Club Aurum Rooms, and ₹20,000 for the Maharaja Suite. This can be authorised on a credit card or placed as cash. Cash deposits are refunded after deducting charges, with any balance transferred via NEFT within 7 working days. Credit card pre-authorisations are released upon settlement; the release time depends on the issuing bank (typically 5-10 business days).",
+      "category": "deposit",
+      "intent": "security_deposit",
+      "source_section": "hotel.faq_restrictions.security_deposit",
+      "keywords": ["security deposit", "incidental", "amount", "cash", "credit card"]
+    },
+    {
+      "chunk_id": 23,
+      "text": "At The Regal Aurum, hotel guests may host visitors in public areas until 10:00 PM. After 10:00 PM, any visitor entering a guest room must present a valid government photo ID at the Front Desk and be registered by the guest. Overnight visitors staying past 11:00 PM are not permitted unless added to the reservation at an additional charge of ₹3,500 + 18% GST per night. Unregistered overnight visitors will incur a penalty equal to the full nightly room rate, and the visitor will be escorted out. Visitors are not allowed to use the pool, gym, or spa without a facility day pass.",
+      "category": "visitor",
+      "intent": "visitor_policy",
+      "source_section": "hotel.faq_restrictions.visitor_policy",
+      "keywords": ["visitor", "guest room", "overnight", "ID", "registration", "penalty"]
+    },
+    {
+      "chunk_id": 24,
+      "text": "Quiet hours at The Regal Aurum are strictly enforced from 10:00 PM to 7:00 AM. During this period, all noise must be inaudible in adjacent rooms and corridors. The enforcement protocol: first verified complaint results in a verbal warning, second complaint leads to a written notice and a ₹5,000 disturbance fee, and a third complaint causes eviction without refund with security involvement. Parties in guest rooms after 10:00 PM are prohibited.",
+      "category": "noise",
+      "intent": "general_information",
+      "source_section": "hotel.faq_restrictions.noise_restrictions",
+      "keywords": ["quiet hours", "noise", "complaint", "fee", "eviction"]
+    },
+    {
+      "chunk_id": 25,
+      "text": "The Royal Palate provides 24-hour in-room dining at The Regal Aurum. A delivery charge of ₹250 per order applies, waived for Maharaja Suite guests. Menu highlights: Continental breakfast ₹1,500, Indian breakfast ₹1,800, club sandwich ₹1,200, butter chicken with naan ₹1,600, pasta ₹1,400, desserts from ₹700. Prices exclude taxes. Orders can be placed by phone or in-room tablet.",
+      "category": "room_service",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.The Royal Palate",
+      "keywords": ["in-room dining", "room service", "delivery charge", "24 hours", "menu"]
+    },
+    {
+      "chunk_id": 26,
+      "text": "Complimentary high-speed Wi-Fi is available throughout The Regal Aurum. Each guest room supports up to 4 devices with a bandwidth of 50 Mbps. Additional devices or higher speeds are not offered as standard. Log-in credentials are provided at check-in.",
+      "category": "wifi",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.general.wifi",
+      "keywords": ["Wi-Fi", "internet", "free", "devices", "Mbps"]
+    },
+    {
+      "chunk_id": 27,
+      "text": "The in-room minibar at The Regal Aurum is fully stocked with snacks and beverages. Prices are listed inside the cabinet door; charges are posted to the guest folio upon consumption. The Maharaja Suite minibar is complimentary for all non-alcoholic beverages and house-pour spirits; premium alcohol incurs charges as per the menu. No outside beverages may be stored in the minibar.",
+      "category": "minibar",
+      "intent": "amenity_query",
+      "source_section": "hotel.room_categories.general.minibar",
+      "keywords": ["minibar", "charges", "complimentary", "suite", "alcohol"]
+    },
+    {
+      "chunk_id": 28,
+      "text": "Each room at The Regal Aurum includes a Nespresso coffee machine with complimentary daily capsules: 4 capsules in Premier Rooms, 6 in Club Aurum Rooms, and unlimited upon request in the Maharaja Suite. Additional capsules cost ₹150 each. An electric kettle with a selection of premium teas is complimentary in all rooms.",
+      "category": "in-room beverages",
+      "intent": "amenity_query",
+      "source_section": "hotel.room_categories.general.nespresso",
+      "keywords": ["coffee", "Nespresso", "capsules", "tea", "complimentary", "charge"]
+    },
+    {
+      "chunk_id": 29,
+      "text": "Luggage storage is provided complimentary at The Regal Aurum for guests arriving before check-in or after check-out. Items are kept in a secure storage room, and a claim ticket is issued. The hotel is not liable for valuables left in stored luggage; use the in-room safe for high-value items.",
+      "category": "luggage",
+      "intent": "amenity_query",
+      "source_section": "hotel.policies.luggage_storage",
+      "keywords": ["luggage", "storage", "early arrival", "late departure"]
+    },
+    {
+      "chunk_id": 30,
+      "text": "Should a guest depart earlier than the confirmed check-out date, The Regal Aurum charges a penalty equal to the remaining nights' room charges unless the Front Desk is notified at least 24 hours in advance. This policy does not apply to non-refundable bookings, where no refund is granted.",
+      "category": "early_departure",
+      "intent": "booking_policy",
+      "source_section": "hotel.policies.early_departure",
+      "keywords": ["early departure", "penalty", "check-out", "remaining nights"]
+    },
+    {
+      "chunk_id": 31,
+      "text": "The Regal Aurum Club Aurum Lounge, located on the 10th floor, is exclusive to Club Aurum Room and Maharaja Suite guests. It offers personalised check-in/out, all-day tea, coffee, and light refreshments, and evening cocktails with gourmet canapés from 6:00 PM to 8:00 PM. A private meeting room can be booked complimentary for 2 hours per stay, subject to availability and prior reservation.",
+      "category": "lounge",
+      "intent": "amenity_query",
+      "source_section": "hotel.room_categories.Club Aurum Room.lounge",
+      "keywords": ["Club Aurum Lounge", "cocktails", "canapés", "meeting room", "exclusive"]
+    },
+    {
+      "chunk_id": 32,
+      "text": "The dress code for Zafran is strictly enforced. Men must wear collared shirts, full-length trousers, and closed shoes; jackets are preferred but loaners are available. Women are required to wear smart ethnic or formal evening attire. Shorts, sandals, flip-flops, and sleeveless T-shirts are not permitted for guests over 10 years old. The restaurant reserves the right to refuse entry to anyone not meeting the standard.",
+      "category": "dress_code",
+      "intent": "restaurant_query",
+      "source_section": "hotel.amenities.Zafran.dress_code",
+      "keywords": ["dress code", "Zafran", "formal", "jacket", "refusal"]
+    },
+    {
+      "chunk_id": 33,
+      "text": "Commercial photography and filming are not allowed anywhere on The Regal Aurum property without prior written permission from the hotel’s marketing department. Personal photos for non-commercial use are permitted as long as they do not disturb other guests or capture staff without consent.",
+      "category": "photography",
+      "intent": "general_information",
+      "source_section": "hotel.policies.photography",
+      "keywords": ["photography", "filming", "permission", "commercial"]
+    },
+    {
+      "chunk_id": 34,
+      "text": "Laundry, dry-cleaning, and pressing services are available at The Regal Aurum. Same-day service is offered if items are collected by 9:00 AM and returned by 7:00 PM. Express 4-hour service is available at a 50% surcharge. Price lists are in the wardrobe; standard shirt pressing starts at ₹400. The Maharaja Suite includes complimentary pressing of 4 garments per day and shoe shine.",
+      "category": "laundry",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.general.laundry",
+      "keywords": ["laundry", "pressing", "dry cleaning", "same-day", "express", "charge"]
+    },
+    {
+      "chunk_id": 35,
+      "text": "Evening turndown service at The Regal Aurum is performed between 6:00 PM and 9:00 PM. It includes curtain draw, bedside water and glass, a small chocolate or sweet, and slippers placed by the bed. Guests may opt out via the privacy sign or inform the front desk. Additional amenities like extra pillows can be requested during turndown.",
+      "category": "turndown",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.turndown",
+      "keywords": ["turndown", "evening service", "chocolate", "slippers"]
+    },
+    {
+      "chunk_id": 36,
+      "text": "The electrical outlets in The Regal Aurum guest rooms are 220-240V, 50Hz, with Type C, D, and M sockets. Universal adapters are available upon request from housekeeping at no charge. Guests bringing appliances from regions with 110V should bring their own voltage converters.",
+      "category": "electrical",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.general.electrical",
+      "keywords": ["voltage", "adapter", "socket", "power", "220V"]
+    },
+    {
+      "chunk_id": 37,
+      "text": "Lost and found items at The Regal Aurum are logged and stored for 90 days. To claim an item, guests must contact the hotel with a description and the date of stay. Items not claimed within 90 days are donated or disposed of. The hotel ships items at the guest's expense via a courier arranged by the hotel.",
+      "category": "lost_found",
+      "intent": "amenity_query",
+      "source_section": "hotel.policies.lost_found",
+      "keywords": ["lost and found", "storage", "claim", "90 days", "shipping"]
+    },
+    {
+      "chunk_id": 38,
+      "text": "Only one rollaway bed is permitted per room at The Regal Aurum and only in the Premier and Club Aurum categories. The Maharaja Suite does not accept a rollaway due to its layout. Rollaway bed charge is ₹2,000 per night plus 18% GST and must be requested at the time of booking; day-of requests may not be accommodated.",
+      "category": "extra_bed",
+      "intent": "child_policy",
+      "source_section": "hotel.policies.child_extra_bed",
+      "keywords": ["rollaway", "extra bed", "restrictions", "fee", "Maharaja Suite"]
+    },
+    {
+      "chunk_id": 39,
+      "text": "The Regal Aurum provides a complimentary shoe shine service for all guests upon request. For Maharaja Suite guests, it is automatically offered as part of the daily butler service. Shoes left with the butler by 10:00 PM are returned by 7:00 AM next morning.",
+      "category": "shoe_shine",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.general.shoe_shine",
+      "keywords": ["shoe shine", "complimentary", "butler"]
+    },
+    {
+      "chunk_id": 40,
+      "text": "Group bookings of more than 5 rooms at The Regal Aurum are subject to a separate contract. A non-refundable deposit of 50% of the total stay is required 30 days before arrival, with the balance due 14 days prior. Cancellation policies for groups are customised and may be stricter than individual policies. Contact the hotel's group sales team for details.",
+      "category": "group_booking",
+      "intent": "booking_policy",
+      "source_section": "hotel.policies.group_bookings",
+      "keywords": ["group", "booking", "deposit", "policy", "multiple rooms"]
+    },
+    {
+      "chunk_id": 41,
+      "text": "The minimum age to check in at The Regal Aurum is 18 years. A valid government photo ID and a credit card or cash deposit are mandatory. Guests under 18 must be accompanied by an adult and registered as an additional guest.",
+      "category": "age_requirement",
+      "intent": "booking_policy",
+      "source_section": "hotel.policies.age_requirement",
+      "keywords": ["check-in age", "minimum age", "ID", "under 18"]
+    },
+    {
+      "chunk_id": 42,
+      "text": "Outside food and beverages are not permitted anywhere on The Regal Aurum property, including guest rooms, with the exception of special baby food or medical dietary requirements which must be declared at check-in. Violation may result in a ₹5,000 cleanliness surcharge.",
+      "category": "outside_food",
+      "intent": "general_information",
+      "source_section": "hotel.faq_restrictions.outside_food",
+      "keywords": ["outside food", "beverages", "prohibited", "baby food"]
+    },
+    {
+      "chunk_id": 43,
+      "text": "The Regal Aurum offers currency exchange services at the front desk for hotel guests only. Accepted foreign currencies are USD, EUR, GBP, JPY, AUD, SGD, and CAD. The exchange rate is updated every 4 hours and a valid passport with visa copy is required. There is no service fee for hotel guests, but a maximum of ₹50,000 equivalent per transaction applies.",
+      "category": "currency_exchange",
+      "intent": "payment_methods",
+      "source_section": "hotel.faq_restrictions.payment_methods.currency_exchange",
+      "keywords": ["currency exchange", "forex", "rates", "passport"]
+    },
+    {
+      "chunk_id": 44,
+      "text": "All public areas and guest floors at The Regal Aurum are under CCTV surveillance 24/7 for security. Recordings are kept for 30 days and may be accessed by management in case of incidents. Guest room corridors are monitored; inside guest rooms there is no surveillance.",
+      "category": "security",
+      "intent": "general_information",
+      "source_section": "hotel.security.cctv",
+      "keywords": ["CCTV", "surveillance", "security", "privacy"]
+    },
+    {
+      "chunk_id": 45,
+      "text": "The temperature control in each room is individually adjustable via a wall thermostat. The cooling and heating system operates 24/7. Guests can set the temperature between 18°C and 26°C. For technical issues, engineering is available round the clock by dialling guest services.",
+      "category": "climate_control",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.general.climate_control",
+      "keywords": ["AC", "temperature", "thermostat", "heating", "cooling"]
+    },
+    {
+      "chunk_id": 46,
+      "text": "Room upgrades at The Regal Aurum are possible based on availability and are charged at the difference between the booked category and the higher category's nightly rate. Upgrades to the Maharaja Suite from a lower category require a minimum supplement of ₹1,15,000 per night. Upgrade requests are handled at check-in; advanced guaranteed upgrades can be booked for a set fee.",
+      "category": "upgrades",
+      "intent": "booking_policy",
+      "source_section": "hotel.policies.upgrades",
+      "keywords": ["upgrade", "room", "price difference", "Maharaja Suite"]
+    },
+    {
+      "chunk_id": 47,
+      "text": "Iron and ironing board are standard in every room at The Regal Aurum. Additionally, pressing services are available via butler in Club Aurum and Maharaja Suite. For Premier Rooms, a dedicated pressing service is chargeable as per laundry menu.",
+      "category": "ironing",
+      "intent": "amenity_query",
+      "source_section": "hotel.amenities.general.ironing",
+      "keywords": ["iron", "ironing board", "pressing", "laundry"]
+    },
+    {
+      "chunk_id": 48,
+      "text": "The Regal Aurum has a strict no-party policy in guest rooms. Social gatherings after 10:00 PM are not allowed. Any event requiring entertainment, catering, or exceeding room occupancy must be booked through the hotel's banquets and events team. Unauthorised parties will be shut down and may result in eviction without refund.",
+      "category": "events",
+      "intent": "general_information",
+      "source_section": "hotel.policies.no_party",
+      "keywords": ["party", "gathering", "banquet", "noise", "eviction"]
+    },
+    {
+      "chunk_id": 49,
+      "text": "Guests with allergies or specific medical needs can inform The Regal Aurum in advance. Hypoallergenic pillows and bedding are available from the pillow menu. The kitchen can accommodate common dietary restrictions (gluten-free, lactose-free, nut-free) with 24-hour notice for in-room dining and restaurant reservations. A detailed allergy chart can be requested from the chef.",
+      "category": "allergies",
+      "intent": "general_information",
+      "source_section": "hotel.policies.allergies",
+      "keywords": ["allergy", "dietary", "hypoallergenic", "food", "pillow"]
+    },
+    {
+      "chunk_id": 50,
+      "text": "The Regal Aurum is located in the Diplomatic Enclave, Sardar Patel Marg, New Delhi – 110021. The nearest airport is Indira Gandhi International Airport (DEL), approximately 12 km away. The hotel is within 5 km of major landmarks such as Rashtrapati Bhavan and India Gate. Nearby metro station is Lok Kalyan Marg (Yellow Line), 1.5 km away. Taxi and app-based ride services are readily available.",
+      "category": "location",
+      "intent": "general_information",
+      "source_section": "hotel.general.location",
+      "keywords": ["location", "address", "airport distance", "metro", "landmarks"]
+    }
+  ],
+  "negative_knowledge": [
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "Room availability is not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "Future promotional rates are not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "Live booking status is not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "Payment links are not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "Reservation modifications are not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "Guest personal data is not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "Staff personal contact information is not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "Real-time inventory is not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "pricing_query",
+      "text": "Future room rates, negotiated rates, unpublished promotional rates, corporate contract rates, seasonal pricing, and dynamic pricing information are not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "booking_policy",
+      "text": "The assistant cannot create, modify, cancel, confirm, upgrade, downgrade, or manage hotel reservations."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "availability_query",
+      "text": "Real-time room availability, occupancy status, and inventory levels are not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "payment_methods",
+      "text": "Payment links, payment gateway URLs, transaction processing details, and secure payment portals are not stored in this knowledge base."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "If retrieved context does not explicitly answer a question, the assistant must refuse rather than infer, estimate, extrapolate, assume, or guess."
+    },
+    {
+      "category": "unsupported_information",
+      "intent": "general_information",
+      "text": "The assistant has no access to live hotel systems, reservation databases, guest records, payment systems, or operational dashboards."
+    }
+  ],
+  "refusal_templates": {
+    "information_not_found": "I couldn't find that information in the hotel knowledge base. Please contact hotel staff for assistance.",
+    "availability_unknown": "Room availability is not available in the knowledge base. Please contact reservations.",
+    "pricing_unknown": "I couldn't locate pricing information for that request in the knowledge base.",
+    "unsupported_request": "I can only answer questions using information available in the hotel knowledge base.",
+    "reservation_action_not_supported": "The knowledge base cannot create, modify, cancel, confirm, or manage reservations. Please contact hotel reservations.",
+    "payment_link_unavailable": "Payment links are not stored in the hotel knowledge base. Please contact hotel staff for payment assistance.",
+    "context_insufficient": "I could not find enough information in the hotel knowledge base to answer that question.",
+    "inventory_unavailable": "Real-time room inventory and availability are not stored in the hotel knowledge base.",
+    "live_data_unavailable": "I do not have access to live hotel systems or operational databases."
+  },
+  "retrieval_config": {
+    "recommended_top_k": 5,
+    "minimum_similarity_threshold": 0.30,
+    "enable_intent_filtering": true,
+    "enable_answer_validation": false,
+    "enable_context_sufficiency_check": false,
+    "reranking_enabled": true,
+    "recommended_similarity_search_k": 5,
+    "recommended_final_context_chunks": 3,
+    "enable_negative_knowledge_lookup": true,
+    "enable_refusal_fallback": true
+  },
+  "answer_validation_rules": [
+    "Every factual statement must be supported by retrieved chunks.",
+    "Do not answer if supporting context is missing.",
+    "Do not infer values.",
+    "Do not estimate prices.",
+    "Do not estimate timings.",
+    "Do not create policies not present in context.",
+    "Every answer must be grounded in at least one retrieved chunk.",
+    "If retrieval confidence is below the configured threshold, refuse the request.",
+    "If retrieved chunks contradict each other, do not answer.",
+    "If pricing information is missing, never estimate a price.",
+    "If availability information is requested, explain that availability is not stored.",
+    "Never generate booking confirmation numbers.",
+    "Never generate payment URLs.",
+    "Never claim access to live hotel systems.",
+    "Never claim access to live inventory.",
+    "Never answer using world knowledge when retrieved context is missing.",
+    "Every factual statement must be traceable to retrieved context."
+  ],
+  "rag_guardrails": {
+    "require_grounded_answers": true,
+    "allow_estimation": false,
+    "allow_assumptions": false,
+    "allow_world_knowledge_without_context": false,
+    "require_retrieved_context": true,
+    "fallback_to_refusal": true,
+    "minimum_supporting_chunks": 1
+  }
+}
