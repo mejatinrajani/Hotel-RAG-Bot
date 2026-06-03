@@ -10,7 +10,7 @@ from src.rag_pipeline import HotelRAGOrchestrator
 app = FastAPI(title="Hotel Concierge RAG Microservice", version="1.0")
 
 # Initialize orchestrator once on startup
-orchestrator = HotelRAGOrchestrator(debug=True)
+orchestrator = None
 
 # --- Pydantic Data Schemas ---
 class SessionCreateResponse(BaseModel):
@@ -78,6 +78,13 @@ def get_chat_history(session_id: str, db: Session = Depends(get_db)):
 
 @app.post("/chat")
 def handle_chat_query(payload: ChatRequest, db: Session = Depends(get_db)):
+    # --- LAZY LOADING FOR OCHESTRATOR ---
+    global orchestrator
+    if orchestrator is None:
+        print("First request detected! Loading heavy RAG models into memory...")
+        orchestrator = HotelRAGOrchestrator(debug=True)
+    # ------------------------------------
+
     session_uuid = uuid.UUID(payload.session_id)
     session = db.query(ChatSession).filter(ChatSession.id == session_uuid).first()
     
