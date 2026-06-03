@@ -79,8 +79,11 @@ Few-Shot Multilingual Examples for Accuracy (English, Hindi, Hinglish):
 - Query: "Hi, hello there!" -> {{"intent": "greeting", "confidence": 0.99}}
 - Query: "What is your name?" -> {{"intent": "identity", "confidence": 0.99}}
 - Query: "Who are you?" -> {{"intent": "identity", "confidence": 0.98}}
-- Query: "What can you do for me?" -> {"intent": "identity", "confidence": 0.99}
-- Query: "How can you help?" -> {"intent": "identity", "confidence": 0.99}
+- Query: "What can you do for me?" -> {{"intent": "identity", "confidence": 0.99}}
+- Query: "How can you help?" -> {{"intent": "identity", "confidence": 0.99}}
+- Query: "can i have sex at your hotel" -> {{"intent": "inappropriate_query", "confidence": 0.99}}
+- Query: "you are stupid" -> {{"intent": "inappropriate_query", "confidence": 0.99}}
+- Query: "tell me a dirty joke" -> {{"intent": "inappropriate_query", "confidence": 0.99}}
 """
 
     def classify_intent(self, query: str) -> dict:

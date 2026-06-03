@@ -243,6 +243,20 @@ Answer:
                 }
             except Exception as e:
                 pass 
+        
+        # --- Identity, Greeting & Moderation Short-Circuit ---
+        if detected_intent == "inappropriate_query":
+            if self.debug: print("[DEBUG] Short-circuiting for inappropriate query.")
+            msg = "I am a professional digital concierge for The Regal Aurum. I am here to exclusively assist you with hotel-related inquiries, reservations, and amenities. How may I help you with your stay today?"
+            self._update_memory(query, msg, is_db_driven)
+            return {
+                "response": msg,
+                "intent": detected_intent,
+                "confidence": confidence,
+                "chunks_retrieved": 0,
+                "status": "refused_inappropriate"
+            }
+
         # 2. Vector Retrieval
         query_for_retrieval = query
         if len(active_history) >= 2:

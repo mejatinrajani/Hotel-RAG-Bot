@@ -25,6 +25,7 @@
     "airport_transfer",
     "payment_methods",
     "greeting",
+    "inappropriate_query",
     "identity",
     "parking_query",
     "accessibility_query",

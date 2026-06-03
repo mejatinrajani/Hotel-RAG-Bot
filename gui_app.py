@@ -139,27 +139,38 @@ st.markdown("""
         border-color: #64748b !important;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08) !important;
     }
-    
-/* Refined Feedback Button Array */
-    div[data-testid="column"] button {
-        background: transparent !important;
+/* Refined Feedback Button Array - NUCLEAR OVERRIDE */
+    div[data-testid="column"] div[data-testid="stTooltipHoverTarget"],
+    div[data-testid="column"] div[data-testid="stButton"],
+    div[data-testid="column"] button[data-testid="baseButton-secondary"] {
+        background-color: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 0 !important;
-        width: 35px !important;
-        height: 35px !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px !important;
-        transition: background-color 0.2s ease;
-    }
-    div[data-testid="column"] button:hover {
-        background-color: #e2e8f0 !important;
-    }
-    div[data-testid="column"] button p {
-        font-size: 1.2rem !important; /* Make the emojis a bit bigger */
+        outline: none !important;
         margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    div[data-testid="column"] button[data-testid="baseButton-secondary"] {
+        height: 38px !important;
+        width: 38px !important;
+        min-height: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 8px !important;
+        transition: background-color 0.2s ease, transform 0.1s ease !important;
+    }
+
+    div[data-testid="column"] button[data-testid="baseButton-secondary"]:hover {
+        background-color: #e2e8f0 !important;
+        transform: translateY(-1px);
+    }
+
+    div[data-testid="column"] button[data-testid="baseButton-secondary"] p {
+        font-size: 1.25rem !important;
+        margin: 0 !important;
+        line-height: 1 !important;
     }
     /* Branding Elements */
     .brand-title {
@@ -285,7 +296,7 @@ for index, msg_node in enumerate(st.session_state.messages):
         # Interactive Metadata Controls Render Layer (Bot Interfacing Columns)
         if msg_node["role"] == "assistant" and "id" in msg_node:
             # FIXED: Smaller, highly precise column ratios to prevent wrapping or misaligned blocks
-            fb_col1, fb_col2, fb_col3, _ = st.columns([0.04, 0.04, 0.04, 0.88])
+            fb_col1, fb_col2, fb_col3, _ = st.columns([1, 1, 1, 12])
             
             with fb_col1:
                 st.markdown('<div class="feedback-col">', unsafe_allow_html=True)
