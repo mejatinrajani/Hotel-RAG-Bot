@@ -1,44 +1,33 @@
 import os
 import json
-from pydantic import BaseModel, Field
-import google.generativeai as genai
-
-# Configure the Gemini API client from environment variables
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+from groq import Groq
 
 # Paths for data dependencies
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 KB_FILE = os.path.join(DATA_DIR, "hotel_kb.json")
 
-class IntentClassificationResult(BaseModel):
-    intent: str = Field(
-        description="The exact matched intent name from the allowed supported_intents list."
-    )
-    confidence: float = Field(
-        description="The confidence score of the classification between 0.0 and 1.0."
-    )
-
 class HotelIntentClassifier:
-    def __init__(self, model_name: str = "gemini-2.5-flash-lite", debug: bool = False):
+    def __init__(self, model_name: str = "llama-3.3-70b-versatile", debug: bool = False):
         """
-        Initializes the classifier by dynamically binding intents from the knowledge base,
-        building the structural prompt, and instantiating the Gemini model once for reuse.
+        Initializes the Groq classifier by dynamically binding intents from the knowledge base,
+        and setting up the fast Llama 3 API client.
         """
         self.model_name = model_name
         self.debug = debug
         self.supported_intents = []
         
+        # Initialize Groq Client
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            raise ValueError("CRITICAL ERROR: GROQ_API_KEY not found in .env file.")
+        
+        self.client = Groq(api_key=api_key)
+        
         # 1. Load intents from KB
         self._load_intents_from_kb()
         
         # 2. Build system instruction prompt dynamically
-        system_instruction = self._build_system_instruction()
-        
-        # 3. Initialize Gemini model once at startup
-        self.model = genai.GenerativeModel(
-            model_name=self.model_name,
-            system_instruction=system_instruction
-        )
+        self.system_instruction = self._build_system_instruction()
 
     def _load_intents_from_kb(self):
         """Loads valid intents dynamically from hotel_kb.json to guarantee layer sync."""
@@ -55,7 +44,7 @@ class HotelIntentClassifier:
             self.supported_intents = ["general_information"]
 
     def _build_system_instruction(self) -> str:
-        """Constructs the prompt instructing Gemini to strictly choose valid intents."""
+        """Constructs the prompt instructing Llama to strictly choose valid intents."""
         intents_list_str = "\n".join([f"- {intent}" for intent in self.supported_intents])
         
         return f"""
@@ -70,36 +59,48 @@ CRITICAL ROUTING INSTRUCTIONS:
 3. If the query requests active transaction/reservation management actions, external modifications, or live system checks (e.g., "book a room", "change my booking", "send payment link", "check open slots for tonight", "generate corporate quote"), you MUST classify the query as 'general_information'.
 4. Do not invent any new intent strings. Your output must strictly match one of the items listed in the allowlist.
 
+You MUST return ONLY a raw JSON object with no markdown formatting or extra text. It must match this exact schema:
+{{
+    "intent": "category_name",
+    "confidence": 0.95
+}}
+
 Few-Shot Multilingual Examples for Accuracy (English, Hindi, Hinglish):
-- Query: "Pool kitne baje band hota hai?" -> "amenity_query"
-- Query: "Can I bring my dog?" -> "pet_policy"
-- Query: "Smoking allowed hai?" -> "smoking_policy"
-- Query: "What is the security deposit?" -> "security_deposit"
-- Query: "Airport pickup available hai?" -> "airport_transfer"
-- Query: "What is the price of the Premier Room?" -> "pricing_query"
-- Query: "Suite cost kitna hai?" -> "pricing_query"
-- Query: "Can you change my booking for tomorrow?" -> "general_information"
-- Query: "Send me the link to pay for my room." -> "general_information"
-- Query: "What will the room cost during New Year's 2027?" -> "general_information"
+- Query: "Pool kitne baje band hota hai?" -> {{"intent": "amenity_query", "confidence": 0.98}}
+- Query: "Can I bring my dog?" -> {{"intent": "pet_policy", "confidence": 0.99}}
+- Query: "Smoking allowed hai?" -> {{"intent": "smoking_policy", "confidence": 0.97}}
+- Query: "What is the security deposit?" -> {{"intent": "security_deposit", "confidence": 0.95}}
+- Query: "Airport pickup available hai?" -> {{"intent": "airport_transfer", "confidence": 0.96}}
+- Query: "What is the price of the Premier Room?" -> {{"intent": "pricing_query", "confidence": 0.99}}
+- Query: "Suite cost kitna hai?" -> {{"intent": "pricing_query", "confidence": 0.98}}
+- Query: "Can you change my booking for tomorrow?" -> {{"intent": "general_information", "confidence": 0.99}}
+- Query: "Send me the link to pay for my room." -> {{"intent": "general_information", "confidence": 0.99}}
+- Query: "What will the room cost during New Year's 2027?" -> {{"intent": "general_information", "confidence": 0.99}}
+- Query: "Hi, hello there!" -> {{"intent": "greeting", "confidence": 0.99}}
+- Query: "What is your name?" -> {{"intent": "identity", "confidence": 0.99}}
+- Query: "Who are you?" -> {{"intent": "identity", "confidence": 0.98}}
+- Query: "What can you do for me?" -> {"intent": "identity", "confidence": 0.99}
+- Query: "How can you help?" -> {"intent": "identity", "confidence": 0.99}
 """
 
     def classify_intent(self, query: str) -> dict:
         """
-        Classifies the user query using the initialized Gemini model instance, validates the
+        Classifies the user query using the initialized Groq Llama 3 model instance, validates the
         output intent, and applies strict confidence routing logic.
         """
         try:
-            response = self.model.generate_content(
-                f"Classify this query: '{query}'",
-                generation_config=genai.types.GenerationConfig(
-                    response_mime_type="application/json",
-                    response_schema=IntentClassificationResult,
-                    temperature=0.0
-                )
+            response = self.client.chat.completions.create(
+                messages=[
+                    {"role": "system", "content": self.system_instruction},
+                    {"role": "user", "content": f"Classify this query: '{query}'"}
+                ],
+                model=self.model_name,
+                temperature=0.0,
+                response_format={"type": "json_object"}
             )
             
-            result_data = json.loads(response.text)
-            intent = result_data.get("intent")
+            result_data = json.loads(response.choices[0].message.content)
+            intent = result_data.get("intent", "general_information")
             confidence = float(result_data.get("confidence", 0.0))
             
             # Issue 5 Validation Layer: If output is invalid or hallucinated, fall back instantly
@@ -133,3 +134,7 @@ Few-Shot Multilingual Examples for Accuracy (English, Hindi, Hinglish):
 if __name__ == "__main__":
     classifier = HotelIntentClassifier(debug=True)
     print("Configured KB Intents in Memory:", classifier.supported_intents)
+    
+    # Quick local test
+    test_res = classifier.classify_intent("kitne baje checkin hai?")
+    print("Test Result:", test_res)

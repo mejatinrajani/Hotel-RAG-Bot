@@ -24,6 +24,8 @@
     "gym_query",
     "airport_transfer",
     "payment_methods",
+    "greeting",
+    "identity",
     "parking_query",
     "accessibility_query",
     "visitor_policy",
