@@ -5,7 +5,6 @@ from sqlalchemy.orm import Session
 from typing import List, Dict, Any
 
 from src.database import get_db, ChatSession, ChatMessage
-from src.rag_pipeline import HotelRAGOrchestrator
 
 app = FastAPI(title="Hotel Concierge RAG Microservice", version="1.0")
 
@@ -82,8 +81,8 @@ def handle_chat_query(payload: ChatRequest, db: Session = Depends(get_db)):
     global orchestrator
     if orchestrator is None:
         print("First request detected! Loading heavy RAG models into memory...")
+        from src.rag_pipeline import HotelRAGOrchestrator
         orchestrator = HotelRAGOrchestrator(debug=True)
-    # ------------------------------------
 
     session_uuid = uuid.UUID(payload.session_id)
     session = db.query(ChatSession).filter(ChatSession.id == session_uuid).first()
