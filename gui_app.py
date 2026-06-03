@@ -207,12 +207,15 @@ def fetch_chat_history(session_id: str):
         st.session_state.messages = []
         st.error(f"Network transport fault: {str(e)}")
 
-
 def initialize_new_session():
     """Requests a cleanly mapped, non-colliding runtime session ID tied to browser token context."""
+    # 1. Provide a safe fallback so the app never hard-crashes
+    st.session_state.messages = [] 
+    
     try:
         payload = {"client_id": st.session_state.client_id}
         response = requests.post(f"{API_BASE_URL}/sessions", json=payload)
+        
         if response.status_code == 200:
             st.session_state.session_id = response.json().get("session_id")
             st.session_state.messages = [
@@ -222,9 +225,9 @@ def initialize_new_session():
                 }
             ]
         else:
-            st.error("Authentication backend context failed to provision identifier.")
+            st.error(f"Backend is waking up or busy (Status: {response.status_code}). Please wait 30 seconds and refresh the page.")
     except Exception as e:
-        st.error(f"Upstream pipeline connection failure: {str(e)}")
+        st.error(f"Backend is currently offline or sleeping. Please refresh the page in a moment. (Error: {str(e)})")
 
 
 def transmit_user_feedback(message_id: str, feedback_rating: str):
