@@ -18,7 +18,7 @@ class HotelRAGOrchestrator:
         self.model_name = model_name
         # Initialize Groq Client with Key Rotation
         api_keys = [
-            os.getenv("GROQ_API_KEY_1"),
+            os.getenv("GROQ_API_KEY"),
             os.getenv("GROQ_API_KEY_2"),
         ]
         

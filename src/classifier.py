@@ -18,9 +18,8 @@ class HotelIntentClassifier:
         self.supported_intents = []
         # Initialize Groq Client with Key Rotation
         api_keys = [
-            os.getenv("GROQ_API_KEY_1"),
+            os.getenv("GROQ_API_KEY"),
             os.getenv("GROQ_API_KEY_2"),
-            os.getenv("GROQ_API_KEY_3")
         ]
         
         valid_keys = [key for key in api_keys if key]
