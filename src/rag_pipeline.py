@@ -3,6 +3,7 @@ import json
 from typing import Dict, Any, List
 from pydantic import BaseModel, Field
 from groq import Groq
+import random
 
 from src.classifier import HotelIntentClassifier
 from src.vector_store import HotelVectorStore
@@ -15,13 +16,19 @@ class HotelRAGOrchestrator:
     def __init__(self, model_name: str = "llama-3.3-70b-versatile", debug: bool = True):
         self.debug = debug
         self.model_name = model_name
+        # Initialize Groq Client with Key Rotation
+        api_keys = [
+            os.getenv("GROQ_API_KEY_1"),
+            os.getenv("GROQ_API_KEY_2"),
+        ]
         
-        # Initialize Groq Client
-        api_key = os.getenv("GROQ_API_KEY")
-        if not api_key:
-            raise ValueError("CRITICAL ERROR: GROQ_API_KEY not found in .env file.")
+        valid_keys = [key for key in api_keys if key]
+        
+        if not valid_keys:
+            raise ValueError("CRITICAL ERROR: No Groq API keys found in environment variables.")
             
-        self.client = Groq(api_key=api_key)
+        selected_key = random.choice(valid_keys)
+        self.client = Groq(api_key=selected_key)
         if self.debug:
             print("[DEBUG] Initializing RAG pipeline components...")
             

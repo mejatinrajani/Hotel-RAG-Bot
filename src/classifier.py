@@ -1,6 +1,7 @@
 import os
 import json
 from groq import Groq
+import random
 
 # Paths for data dependencies
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
@@ -15,13 +16,20 @@ class HotelIntentClassifier:
         self.model_name = model_name
         self.debug = debug
         self.supported_intents = []
+        # Initialize Groq Client with Key Rotation
+        api_keys = [
+            os.getenv("GROQ_API_KEY_1"),
+            os.getenv("GROQ_API_KEY_2"),
+            os.getenv("GROQ_API_KEY_3")
+        ]
         
-        # Initialize Groq Client
-        api_key = os.getenv("GROQ_API_KEY")
-        if not api_key:
-            raise ValueError("CRITICAL ERROR: GROQ_API_KEY not found in .env file.")
+        valid_keys = [key for key in api_keys if key]
         
-        self.client = Groq(api_key=api_key)
+        if not valid_keys:
+            raise ValueError("CRITICAL ERROR: No Groq API keys found in environment variables.")
+            
+        selected_key = random.choice(valid_keys)
+        self.client = Groq(api_key=selected_key)
         
         # 1. Load intents from KB
         self._load_intents_from_kb()
